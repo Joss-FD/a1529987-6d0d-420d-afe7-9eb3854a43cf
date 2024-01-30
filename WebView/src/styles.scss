@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+html {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+textarea {
+    margin: 2em;
+}
+
+button {
+    padding: 1em;
+}
+
+.highlight {
+    background-color: rgba(9, 187, 9, 0.342);
+}

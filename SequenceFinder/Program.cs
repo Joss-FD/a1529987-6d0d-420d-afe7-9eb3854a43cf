@@ -7,4 +7,4 @@ string fileContent = File.ReadAllText(@"..\..\..\Sample.txt");
 SequenceHandler sf = new SequenceHandler();
 
 var seq = sf.FindLongestSequence(fileContent);
-Console.WriteLine(String.Join(" ", seq));
+Console.WriteLine(seq);

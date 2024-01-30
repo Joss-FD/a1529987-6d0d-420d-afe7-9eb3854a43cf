@@ -15,7 +15,6 @@ namespace SequenceFinder
 
         private List<int>? Parse(string listString)
         {
-            List<int>? res = null;
 
             //Quick validation
             if(string.IsNullOrEmpty(listString) || listString.Any(c => !char.IsDigit(c) && !char.IsWhiteSpace(c)))
@@ -28,12 +27,12 @@ namespace SequenceFinder
         }
 
 
-        public List<int> FindLongestSequence(string inputString)
+        public string FindLongestSequence(string inputString)
         {
             
             List<int> longestSequence = new List<int>();
             int maxLength = 0;
-            int currLength = 0;
+            int currLength = 1;
             int maxIndex = 0;
 
 
@@ -42,7 +41,7 @@ namespace SequenceFinder
 
             if (numbersList == null || numbersList.Count == 0) 
             {
-                return longestSequence;
+                return "";
             }
 
             int size = numbersList.Count;
@@ -75,8 +74,8 @@ namespace SequenceFinder
 
             longestSequence = numbersList.GetRange(maxIndex, maxLength);
 
-            
-            return longestSequence;
+            var result = String.Join(" ", longestSequence);
+            return result;
         }
 
     }
