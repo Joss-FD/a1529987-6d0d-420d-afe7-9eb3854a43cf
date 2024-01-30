@@ -1,0 +1,29 @@
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install and build
+      working-directory: .\\WebView
+      run: npm install && npm run build
+    
+    - name: Deploy
+      uses: github-pages-deploy-action@v4.5.0
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: WebView/dist/LongestSequence # The folder the action should deploy.       
