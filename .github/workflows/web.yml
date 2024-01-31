@@ -19,8 +19,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install and build
-      working-directory: .\\WebView
-      run: npm install && npm run build
+      working-directory: ./WebView
+      run: npm install && npm run git-build
     
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4.5.0

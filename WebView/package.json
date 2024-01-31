@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "git-build": "ng build --configuration github --base-ref /5eb4233e-d0b4-4ec5-9859-507281518e4f",
     "watch": "ng build --watch --configuration development"
   },
   "private": true,
