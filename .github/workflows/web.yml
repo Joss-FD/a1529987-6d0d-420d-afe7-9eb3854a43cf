@@ -25,5 +25,5 @@ jobs:
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@v4.5.0
       with:
-        branch: gh-pages # The branch the action should deploy to.
+        branch: page-view # The branch the action should deploy to.
         folder: WebView/dist/web-view # The folder the action should deploy.       
