@@ -14,10 +14,10 @@ import { HttpClient, HttpHeaders } from  '@angular/common/http';
         <textarea placeholder="Enter numbers..." cols="30" rows="10" [value]="inputText" (input)="updateValue($event)"></textarea>
         <button (click)="getLongestSequence()">Find</button>
         <p *ngIf="isLoading">{{loadingText}}</p>
+        <p class="error" *ngIf="showError">{{errorText}}</p>
         <p #output>
         {{inputSnapshot}}
         </p>
-        <p class="error" *ngIf="showError">{{errorText}}</p>
       </div>
     </div>
     
@@ -67,6 +67,8 @@ export class AppComponent {
       this.stopLoad()
     }, 
     err => { 
+      console.log("err");
+      
       this.stopLoad()
       this.showError = true;
       this.errorText = "Couldn't get response from API";
