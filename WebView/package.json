@@ -8,7 +8,7 @@
     "git-build": "ng build --base-href /5eb4233e-d0b4-4ec5-9859-507281518e4f/",
     "watch": "ng build --watch --configuration development"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^15.2.0",
     "@angular/common": "^15.2.0",
