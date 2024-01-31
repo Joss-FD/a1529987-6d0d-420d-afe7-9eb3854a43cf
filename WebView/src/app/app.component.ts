@@ -13,9 +13,11 @@ import { HttpClient, HttpHeaders } from  '@angular/common/http';
         <span> Enter a list of numbers seperated by a whitespace </span>
         <textarea placeholder="Enter numbers..." cols="30" rows="10" [value]="inputText" (input)="updateValue($event)"></textarea>
         <button (click)="getLongestSequence()">Find</button>
+        <p *ngIf="isLoading">{{loadingText}}</p>
         <p #output>
         {{inputSnapshot}}
-        </p> 
+        </p>
+        <p class="error" *ngIf="showError">Couldn't get response from API</p>
       </div>
     </div>
     
@@ -36,24 +38,56 @@ export class AppComponent {
   inputText: string = "";
   inputSnapshot: string = "";
   resultSequence: any = "";
+  showError: boolean = false;
+
+  isLoading: boolean = false;
+  loadingText: string = "";
 
   updateValue(e: Event) {
     this.inputText = (e.target as HTMLTextAreaElement).value;
   }
 
-  getLongestSequence() {
-    this.inputSnapshot = this.inputText;
-    
-    this.http.post("https://localhost:7186/FindSequence",  this.inputText.toString(), {responseType: 'text'}).subscribe(res => { 
 
+
+  getLongestSequence() {
+    this.startLoad()
+    this.http.post("https://localhost:7186/FindSequence",  this.inputText.toString(), {responseType: 'text'}).subscribe(res => { 
+      this.inputSnapshot = this.inputText;
       this.resultSequence = res.toString();
       this.updateView();
-    });
+      this.stopLoad()
+    }, 
+    err => { 
+      this.stopLoad()
+    
+    }
+    );
     
   }
 
-  updateView() {
+  subroutine: any;
+  startLoad() {
+    this.showError = false;
+    this.isLoading = true;
+    this.subroutine = setInterval(() => {
+      if(this.loadingText == "...") {
+        this.loadingText = ""
+      }
+      else {
+        this.loadingText += '.';
+      }
+    }, 300)  
+   
+  }
 
+  stopLoad() {
+    this.isLoading = false;
+    this.loadingText = ""
+    clearInterval(this.subroutine);
+    this.showError = true;
+  }
+
+  updateView() {
     this.output.nativeElement.innerHTML = this.inputSnapshot.replaceAll(this.resultSequence, `<span id="target" class="highlight"> ${this.resultSequence}</span>`);
     this.scroll()
   }

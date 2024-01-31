@@ -18,5 +18,11 @@ button {
 }
 
 .highlight {
+    font: bold;
     background-color: rgba(9, 187, 9, 0.342);
+}
+
+.error {
+    font: bold;
+    color: rgb(145, 20, 20);
 }
