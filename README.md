@@ -25,7 +25,7 @@ Enter the list of number in the Sample.txt file and run the application - the co
 # Run the web version
 Right now the API needs to be ran locally.
 Open the WebAPI solution and run it in visual studio. This will run the project under https://localhost:7186/
-You can then navigate to the [web page](https://joss-fd.github.io/5eb4233e-d0b4-4ec5-9859-507281518e4f/) and use the application.
+You can then navigate to the [web page](https://joss-fd.github.io/a1529987-6d0d-420d-afe7-9eb3854a43cf/) and use the application.
 
 Alternatively you can choose to run the angular code locally. If so:
 
