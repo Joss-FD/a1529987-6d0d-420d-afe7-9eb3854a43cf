@@ -17,7 +17,7 @@ import { HttpClient, HttpHeaders } from  '@angular/common/http';
         <p #output>
         {{inputSnapshot}}
         </p>
-        <p class="error" *ngIf="showError">Couldn't get response from API</p>
+        <p class="error" *ngIf="showError">{{errorText}}</p>
       </div>
     </div>
     
@@ -39,9 +39,10 @@ export class AppComponent {
   inputSnapshot: string = "";
   resultSequence: any = "";
   showError: boolean = false;
-
+  errorText: string = "";
   isLoading: boolean = false;
   loadingText: string = "";
+
 
   updateValue(e: Event) {
     this.inputText = (e.target as HTMLTextAreaElement).value;
@@ -50,6 +51,14 @@ export class AppComponent {
 
 
   getLongestSequence() {
+    //sanitize input
+    this.inputText = this.inputText.replace(/  +/g, ' ').trimStart().trimEnd()
+    if(!this.inputText || this.inputText.match(/[^ $\d]/) ) {
+      this.errorText = "Invalid input. Please enter only numbers seperated by a whitespace";
+      this.showError = true;
+      return;
+    }
+
     this.startLoad()
     this.http.post("https://localhost:7186/FindSequence",  this.inputText.toString(), {responseType: 'text'}).subscribe(res => { 
       this.inputSnapshot = this.inputText;
@@ -59,7 +68,8 @@ export class AppComponent {
     }, 
     err => { 
       this.stopLoad()
-    
+      this.showError = true;
+      this.errorText = "Couldn't get response from API";
     }
     );
     
@@ -84,17 +94,15 @@ export class AppComponent {
     this.isLoading = false;
     this.loadingText = ""
     clearInterval(this.subroutine);
-    this.showError = true;
   }
 
   updateView() {
-    this.output.nativeElement.innerHTML = this.inputSnapshot.replaceAll(this.resultSequence, `<span id="target" class="highlight"> ${this.resultSequence}</span>`);
+    this.output.nativeElement.innerHTML = this.inputSnapshot.replace(this.resultSequence, `<span id="target" class="highlight"> ${this.resultSequence}</span>`);
     this.scroll()
   }
 
   scroll() {
     let el: HTMLElement = document.getElementById("target")!;
-    
     el.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});
   }
 
