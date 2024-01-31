@@ -45,9 +45,7 @@ export class AppComponent {
     this.inputSnapshot = this.inputText;
     
     this.http.post("https://localhost:7186/FindSequence",  this.inputText.toString(), {responseType: 'text'}).subscribe(res => { 
-   
-      console.log(res);
-      
+
       this.resultSequence = res.toString();
       this.updateView();
     });
@@ -62,7 +60,6 @@ export class AppComponent {
 
   scroll() {
     let el: HTMLElement = document.getElementById("target")!;
-    console.log(el);
     
     el.scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'});
   }
